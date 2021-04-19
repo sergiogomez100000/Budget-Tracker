@@ -1,7 +1,7 @@
 let db;
-
+//uses IndexedDB opens DB
 const request = indexedDB.open("BudgetDB", 21);
-
+//creates object store if needed
 request.onupgradeneeded = function (e) {
   db = e.target.result;
 
@@ -10,12 +10,12 @@ request.onupgradeneeded = function (e) {
   }
 };
 
-
+//if an error, logs error code
 request.onerror = function (e) {
   console.log(`Woops! ${e.target.errorCode}`);
 };
 
-
+//function to check DB if empty or to populate
 function checkDatabase() {
     console.log('check db invoked');
   
