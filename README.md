@@ -16,6 +16,7 @@ Must have Node.js installed as well as the Mongoose, express.
 Can be used anywhere, regardless whether connected to a internet network or not.
 
 ## Screenshots
+<img src="images\Screenshot (102).png">
 
 ## Links 
-You can see a link to my deployed application here(https://drive.google.com/file/d/1lweGzmDXzD3J3xzsWIiC3LLBduzglmGB/view) and a link to my Github repository here().
+You can see a link to my deployed application here() and a link to my Github repository here(https://github.com/sergiogomez100000/Int-Budget-Tracker).
