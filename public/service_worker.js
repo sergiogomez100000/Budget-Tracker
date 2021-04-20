@@ -9,6 +9,7 @@ const FILES_TO_CACHE = [
   '/icons/icon-512x512.png',
   '/manifest.webmanifest',
   '/index.js',
+  '/db.js'
 ];
 
 // install, what files do we need to download on the desktop when offline
