@@ -1,5 +1,19 @@
 let transactions = [];
 let myChart;
+let isOnline;
+
+//2.a.online function sets window.isOnline to true & check if indexdb is empty
+function updateOnlineStatus(){
+  isOnline = true;
+}
+//if indexDb is not empty , send post request for each indexdb transaction
+//2.b.offline function sets window.isOnline to false
+ function updateOfflineStatus(){
+isOnline = false;
+}
+//1.add eventlisteners on window; one if online one if offline
+window.addEventListener("online", updateOnlineStatus)
+window.addEventListener("offline", updateOfflineStatus)
 
 fetch("/api/transaction")
   .then(response => {
@@ -112,6 +126,28 @@ function sendTransaction(isAdding) {
   populateTable();
   populateTotal();
   
+  //if isOnline is false then add to indexDb
+  if(!isOnline){
+    DBOpenRequest= windowindexedDB.open("BudgetDB", 21);
+    db = DBOpenRequest.result;
+    function addData(){
+      var transactionDB = db.transaction("BudgetDB","readwrite");
+      var objectStore = transactionDB.objectStore("Budget");
+      var objectStoreRequest= objectStore.add(transaction);
+      objectStoreRequest.onsuccess = function(event){
+        console.log("transaaction added")
+      }
+
+    }
+    addData();
+
+    var request = objectStore.add(transaction);
+  }
+  //if isOnline is true then post below
+  if(isOnline){
+
+  
+
   // also send to server
   fetch("/api/transaction", {
     method: "POST",
@@ -143,6 +179,8 @@ function sendTransaction(isAdding) {
     nameEl.value = "";
     amountEl.value = "";
   });
+
+}
 }
 
 document.querySelector("#add-btn").onclick = function() {
