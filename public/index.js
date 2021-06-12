@@ -4,14 +4,18 @@ let isOnline;
 
 //2.a.online function sets window.isOnline to true & check if indexdb is empty
 function updateOnlineStatus(){
-  isOnline = true;
+ console.log("IM ONLINE")
+  window.isOnline = true;
 }
 //if indexDb is not empty , send post request for each indexdb transaction
 //2.b.offline function sets window.isOnline to false
  function updateOfflineStatus(){
-isOnline = false;
+console.log("IM OFFLINE")
+  window.isOnline = false;
 }
-//1.add eventlisteners on window; one if online one if offline
+//1.add eventlisteners on window; one 
+isOnline = window.navigator.onLine;
+//if online one if offline
 window.addEventListener("online", updateOnlineStatus)
 window.addEventListener("offline", updateOfflineStatus)
 
@@ -92,7 +96,7 @@ function populateChart() {
   });
 }
 
-function sendTransaction(isAdding) {
+ async function sendTransaction(isAdding) {
   let nameEl = document.querySelector("#t-name");
   let amountEl = document.querySelector("#t-amount");
   let errorEl = document.querySelector(".form .error");
@@ -128,20 +132,19 @@ function sendTransaction(isAdding) {
   
   //if isOnline is false then add to indexDb
   if(!isOnline){
-    DBOpenRequest= windowindexedDB.open("BudgetDB", 21);
+    DBOpenRequest=  await window.indexedDB.open("BudgetDB", 21);
     db = DBOpenRequest.result;
     function addData(){
       var transactionDB = db.transaction("BudgetDB","readwrite");
       var objectStore = transactionDB.objectStore("Budget");
       var objectStoreRequest= objectStore.add(transaction);
       objectStoreRequest.onsuccess = function(event){
-        console.log("transaaction added")
+        console.log("transaction added")
       }
 
     }
     addData();
 
-    var request = objectStore.add(transaction);
   }
   //if isOnline is true then post below
   if(isOnline){
