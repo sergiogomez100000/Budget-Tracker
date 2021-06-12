@@ -1,6 +1,11 @@
 body {
   font-size: 120%;
   font-family: Arial;
+  background-color: lightgray;
+}
+
+.jumbotron {
+  background-color: #0d6efd;
 }
 
 button, input {
